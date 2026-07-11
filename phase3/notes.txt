@@ -1,0 +1,51 @@
+bomb_lab/phase3
+
+input is in [rbp+8]
+mov it in rcx
+bomb!@ILT+1035(phase_3) 
+  format string %d %d into rdx > so it expect two integers
+  input into rcx 'phase'
+  call sscanf
+	cmp [rbp+64h] with 2
+	 jge     bomb!phase_3+0x7e (7ff77a5c220e)
+			mov rbp+8 into eax
+			then mov it to rbp+134h (position of first integer we enter)
+			cmp rbp+134h with 7 
+			ja      bomb!phase_3+0xfa (7ff77a5c228a) >> explode
+			jmp     bomb!phase_3+0xff (7ff77a5c228f)
+					cmp [rbp+4] , 5 first argument
+						jg      bomb!phase_3+0x10d (7ff77a5c229d) > explode
+						else 
+							mov [rbp+24] into eax second integar 
+							cmp eax with [rbp+44] which 0xff ff ff 82 (-126)
+							je      bomb!phase_3+0x112 (7ff77a5c22a2)
+							ret 
+						call    bomb!@ILT+675(phase_defused)
+						mov string to rcx
+						call printf
+						0:000> da rcx
+							00007ff7`7a5cbd50  "Halfway there!."
+
+							
+						
+			
+			
+			
+			
+			
+		   
+	 else call    bomb!@ILT+945(explode_bomb) (7ff77a5c13b6)
+
+
+-------------------------------------------------------------------------------------------------
+
+summary : 
+
+phase_3 takes two integer > from sscanf %d *2 
+
+ 5<= x1 > 7
+if x1 = 3 , 5 then x2 = -126
+if x1 =4 then x2 = 0
+if x1 =1 then x2 = -26
+if x1 = 2 then x2 = 562
+
