@@ -1,0 +1,78 @@
+bomb_lab/phase2
+
+mov input ('phase2') into rcx
+call  bomb!@ILT+970(phase_2) (7ff77a5c13cf)
+	mov [rbb+28h] into rdx >> ? 00000065`95baf948 : 0c cc cc cc cc cc cc cc
+	mov [rbp+130h] into rcx  >> ? 00007ff7`7a5d0250 : input 'phase2'
+	call bomb!@ILT+205(read_six_numbers) 
+		mov format string into rdx (
+						0:000> da rdx
+						00007ff7`7a5cc460  "%d %d %d %d %d %d") // expect 6 unsigned integer
+		mov input into rcx
+		call sscanf >> output is in eax
+		mov eax into [rbp+4] maybe will be used as counter later
+		cmp [rbp+4] with 6 
+		jge (signed)  bomb!read_six_numbers+0xae (7ff77a5c306e)  can restart it and put  6 integers as input or just patch the eax register , r rax = 6
+				ret
+		cmp [rbp+28h] with 1 ? when examine that area , it has input so it checks the first value of our input if it == 1 or not 
+			
+			 je      bomb!phase_2+0x6c (7ff77a5c20fc) zf == 1
+					mov 1 to [rbp+4] ? counter ig 
+					jmp bomb!phase_2+0x7d (7ff77a5c210d)
+						cmp [rbp+4] with 6 
+							
+							jge     bomb!phase_2+0xa2 (7ff77a5c2132)
+									ret
+							call    bomb!@ILT+675(phase_defused) (7ff77a5c12a8)
+							mov string to rcx
+							call printf : 
+									0:000> da 7ff77a5cbd28
+									00007ff7`7a5cbd28  "That's number 2.  Keep going!."
+							else 	
+								mov [rbp+4] to rax
+								mov [rbp+4] to ecx
+								dec ecx 
+								mov [rbp+rcx*4+28h] to ecx 
+								shl ecx , 1 
+								cmp  [rbp+rax*4+28h], ecx 
+								note: here rax = rcx +1 so it checks if [rbp+rax*4+28] is double of  [rbp+rcx*4+28] or not as shl by 1 (can patch each value through sesion or just restart it with proper input)
+									
+								    je      bomb!phase_2+0xa0 (7ff77a5c2130)
+										 jmp     bomb!phase_2+0x75 (7ff77a5c2105):
+											mov rbp+4 into eax
+											inc eax
+											mov eax into rbp+4 
+											jmp bomb!phase_2+0x7d (7ff77a5c210d)
+
+											
+												
+											
+										
+								    else  call    bomb!@ILT+945(explode_bomb) (7ff77a5c13b6)
+						
+					
+					
+			 else  call    bomb!@ILT+945(explode_bomb) 
+
+				
+			
+		else  call    bomb!@ILT+945(explode_bomb) 
+				
+		
+			
+
+
+--------------------------------------------------------------------------------------------------------------
+
+summary : 
+
+the input is 6 integers > from sscan format string %d * 6 
+it first check if first integar is equal to 1 or not 
+after that it checks if each integar of the input is double of prevouis one or not 
+
+so the final answer should be  1 2 4 8 16 32 
+
+
+			
+
+			
