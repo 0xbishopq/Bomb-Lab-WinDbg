@@ -1,0 +1,131 @@
+bomab_lab/phase4
+
+bomb!phase_4: 
+
+mov string format %d %d into rdx
+mov input (1,2) into rcx 
+call sscanf >> should return 2  and move into [rbp+84h] 0000004f`a0eff944
+
+jne     bomb!phase_4+0x7d (7ff7e5f423cd) >> explode
+
+first integer in [rbp+4] 0000004f`a0eff8c4
+second integer in 0000004f`a0eff8e4 [rbp+0x24]
+
+compare [rbp+4] with 0 
+if less  bomb!phase_4+0x7d (7ff7e5f423cd) >> explode
+compare rbp+4 with 0x0e (14) 
+jle     bomb!phase_4+0x82 (7ff7e5f423d2)
+mov 0x0a into [rbp+64h] [10]
+mov 0x0e into r8d 
+mov 0 to edx
+mov [rbp+4] into ecx 
+
+call  bomb!@ILT+725(func4) (7ff7e5f412da) (1,0,14)
+
+mov ecx into [rsp+8] first integer
+mov edx into [rsp+10h] >> 0 
+mov r8d into [rsp+18h] >> 0x0e
+
+
+mov [rbp+108h] into eax >> 0 
+
+mov [rbp+110h] into ecx >> 0x0e
+ecx = ecx - 0 
+mov ecx into eax
+
+sar eax , 1  >> 7 
+
+mov rbp+108h into ecx >>  0
+ecx = ecx + eax >> 7 
+mov ecx into eax  >> 7 
+
+mov eax into [rbp+4] 0000004f`a0eff7a4 >> 7
+mov [rbp+100h] into eax ?? 0000004f`a0eff8a0 first input with eax 
+cmp rbp+4 with eax 
+jle     bomb!func4+0x8a (7ff7e5f41f9a) if rbp+5 <= eax
+
+else  mov [rbp+4] into eax 7
+	dec eax 6
+	mov eax into r8d 
+	mov rbp+108h into rdx
+	mov rbp+100h into ecx first input 
+	call func (1,0,6) 
+
+
+	rbp+108h into eax >> 0
+	rbp110h into ecx >> 6
+	ecx = ecx - eax 6 
+	mov ecx into eax 6 
+	eax = eax - edx 0 
+	sar eax with 1 >> 3
+	
+
+	mov rbp+108h into ecx 0
+        ecx = ecx + eax 3  
+	mov ecx into eax 3 
+	mov eax into rbp+4 3
+	mov [rbp+100h] into eax 1 first integer 
+	cmp rbp+4 with eax 
+	jle     bomb!func4+0x8a (7ff7e5f41f9a) if rbp+4 <= eax
+		 
+		mov rbp+4 into eax 3
+		dec eax 2 
+                mov eax into r8d 2 
+		mov rbp+108h into edx 0 
+		mov rbp+100h into ecx 1 
+
+		 bomb!@ILT+725(func4) (1,0,2)
+			
+			sar with 1 >> 1 
+			cmp     dword ptr [rbp+4], eax first integer with eax 1 = 1
+			jle     bomb!func4+0x8a (7ff7e5f41f9a) rbp+4 <= eax
+						
+				mov [rbp+100h] into eax 1 first integer
+				com [rbp+4] with eax  
+				
+				jge     bomb!func4+0xb5 (7ff7e5f41fc5) rbp+4 >=eax
+						mov rbp+4 into eax
+						ret 
+				add rbp+4 into eax >> 3 + 1 
+				ret 
+				add rbp+4 into eax > 4 + 7 = 11
+				
+				mov eax into rbp+44h
+				mov rbp+64(0x0a) into eax 
+				cmp rbp+44 with eax
+				bomb!phase_4+0xac (7ff7e5f423fc) >> explode
+				
+				cmp rbp+24 with eax second integer = 0x0a 
+					call explode if not true
+
+				call    bomb!@ILT+675(phase_defused) (7ff7e5f412a8
+				
+				mov string into rcx 
+						0:000> da rcx
+						00007ff7`e5f4bd68  "So you got that one.  Try this o"
+						00007ff7`e5f4bd88  "ne..
+				call printf 
+
+
+-----------------------------------------------------------------------------------------------------------
+
+summary : 
+
+it takes two integer as input sscanf format string %d %d 
+x = 0x0e
+it iterates through our first integer and each iterate it calculates  x = x sar 1
+then it sums the output  condition x == x1 
+
+at then end it compare the sum  against a 0x0a 
+
+and for the second integer it just compare against 0x0a 
+
+final solution : 3 10 
+
+
+
+
+						
+					
+
+	
