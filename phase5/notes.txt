@@ -1,0 +1,83 @@
+bomb_lab/phase5
+
+
+
+format string %d %d  into rdx
+input into rcx 
+call sscanf >> 2 into eax
+
+mov eax into [rbp+0x0a4h]  000000ab`7418f794
+
+cmp rbp+0a4h with 2 
+
+jge     bomb!phase_5+0x79 (7ff6116624d9) 
+	first intger in rbp+64h 000000ab`7418f754
+	second integer in 000000ab`7418f774  in rbp+64h + 20h
+	 
+	mov rbp+64h into eax 1
+	and with 0x0f (15) 1
+	mov it back to rbp+64h 1 
+	mov it to rbp+44h 000000ab`7418f734  (1)
+	mov 0 to rbp+4 ?? counter maybe
+	mov 0 to rbp+24 ?? 000000ab`7418f714
+	cmp rbp+64h with 0x0f>>  bomb!phase_5+0x96 (7ff6116624f6)
+	je      bomb!phase_5+0xc4 (7ff611662524)
+		cmp rbp+4 with 0x0f counter 
+		jne > explode
+		else 
+		mov rbp+84h into eax second integer
+		cmp it with rbp+24h 
+		je bomb!phase_5+0xda (7ff61166253a)
+		else >> explode 
+		
+	else
+		mov rbp+4 into eax 3         
+		inc eax 4
+		mov it back to rbp+4 counter 4
+		signed extend to rbp+64 into rax >> 6 singed extend to rax
+		lea address 7ff61166f1d0 to rcx ?? >> some values at these array
+		mov rcx+rax*4 into eax 0x0f
+		mov eax into rbp+64h 0x0f
+		mov rbp+24h into ecx   0x16
+		 ecx = ecx + eax =  0x25 > 37
+		mov ecx into eax 0x25
+		mov eax into rbp +24h 0x25 
+	        jmp     bomb!phase_5+0x96 (7ff6116624f6)
+15-6-0xe-2-1-0xa-0-8-4-9-0xd-0xb-7-3-0xc-5
+---------------------------------------------------------------------------------------------------------
+
+0:000> dd 7ff61166f1d0
+00007ff6`1166f1d0  0000000a 00000002 0000000e 00000007
+00007ff6`1166f1e0  00000008 0000000c 0000000f 0000000b
+00007ff6`1166f1f0  00000000 00000004 00000001 0000000d
+00007ff6`1166f200  00000003 00000009 00000006 00000005
+-----------------------------------------------------------------------------
+
+		current_Value = 0 
+		counter = 0 
+		x1 = x1 and 0x0f
+		rax = x1
+		rax = array[x1] 
+		x1 = rax 
+		current_value = current_Value + x1
+		jmp     bomb!phase_5+0x96 (7ff6116624f6)
+
+		
+		
+	
+	
+else >> explode 
+
+----------------------------------------------------------------
+summary : 
+
+based on the algorithms it takes and  final answer the rbp+64h will have  is 0xf and if we track it back , we will get that chain 15-6-0xe-2-1-0xa-0-8-4-9-0xd-0xb-7-3-0xc-5
+
+so the first integer is 5 
+and the second integer is in rbp+24h which sum them all 
+so :
+
+final answer : 5 115 
+
+0:000> da rcx
+00007ff7`fb38bd98  "Good work!  On to the next...."
