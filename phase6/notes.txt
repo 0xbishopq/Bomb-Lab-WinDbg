@@ -1,0 +1,315 @@
+
+bomb_lab/phase6
+
+
+mov input (1,2,3,4,5,6) into rbp+8
+
+mov rbp+8 into rcx 
+
+call  bomb!@ILT+305(phase_6) (7ff6fb551136)
+
+	mov input into rcx 
+	call    bomb!@ILT+205(read_six_numbers)
+		
+		mov format string into rdx %d * 6 
+		mov input into rcx 
+		call sscaf  >> should return 6  and mov it to rbp+4
+		cmp [rbp+4] with 6 
+		if jge jge     bomb!read_six_numbers+0xae (7ff6fb55306e)
+			
+		ret
+	
+	mov 0 to rbp+0c4h  counter ?? 
+	jmp     bomb!phase_6+0x7c (7ff6fb55262c)
+		cmp rbp+0c4h with 6
+		jge     bomb!phase_6+0xee (7ff6fb55269e)
+		else
+			mov rbp+0c4h into eax
+			compare rbp+rax*4+48h with 1 and if less than 1 go to explode
+			cmp rbp+rax*4+48h with 6 
+			jle     bomb!phase_6+0xa6 (7ff6fb552656)
+				 mov rbp+0c4h into eax
+				 inc eax 
+				 mov eax into rbp+0e4h counter_j ?? 
+				 jmp     bomb!phase_6+0xc4 (7ff6fb552674)
+				 cmp counter_j with 6 
+				 jge     bomb!phase_6+0xec (7ff6fb55269c)
+				 else 
+					mov counter_1 into rax 0
+					mov counter_2 into rcx 
+					moc rbp+rcx*4+48h into eax 
+					compare rbp+rax*4+48h with eax 
+					 jne     bomb!phase_6+0xea (7ff6fb55269a)
+						  counter_j++
+					else 
+					explode
+
+
+				 
+				 
+			eles > explode
+		
+		else >> explode 
+
+
+when counter_1 = 5 
+
+mov rbp+0c4h into eax 
+
+inc eax 6 
+mov it bacck to rbp+0c4h
+
+comp rpb+0c4h with 6 
+jge     bomb!phase_6+0xee (7ff6fb55269e)
+--------------------------------------------------------------------------
+
+mov 0 to rbp+0c4h counter_1 = 0
+
+jmp     bomb!phase_6+0x108 (7ff6fb5526b8)
+
+cmp counter_1 with 6 
+ jge     bomb!phase_6+0x166 (7ff6fb552716)
+
+else : 
+
+mov rbp+8 into rax  00007FF6FB55F050
+mov rax into rbp+28h  00007FF6FB55F050
+mov 1 to rbp+0e4h (counter_j) 
+
+jmp     bomb!phase_6+0x133 (7ff6fb5526e3)
+
+mov counter_1 into rax 1  
+mov rbp+rax*4+48h into eax secod integer
+
+cmp counter_j with eax (second integer)
+
+jge     bomb!phase_6+0x154 (7ff6fb552704)  counter_j >= eax
+
+mov counter_1 into rax 0
+mov rbp+28h into rcx 00007FF6FB55F050
+mov rcx into rbp+rax*8+78h 00007FF6FB55F050
+
+jmp  bomb!phase_6+0xfa (7ff6fb5526aa)
+
+mov counter_1 into eax
+inc eax 
+
+mov it back to rbp+0c4h
+
+compare counter_1 with 6 
+
+loop above 
+
+else : 
+
+mov rbp+28h into rax
+mov rbp+8 into rax 
+
+mov rax into rbp+28h 
+
+mov counter_j  into eax 
+inc eax 
+mov eax into counter_j 
+
+mov counter_1 into rax
+mov rbp+rax*4+48h into eax 
+
+compare counter_j with eax 
+
+jge     bomb!phase_6+0x154 (7ff6fb552704)
+
+
+-------------------------------------------------------------------------------------
+
+0:000> dd rbp+0*8+78h
+0000002c`d08ffa28  fb55f050 00007ff6 fb55f040 00007ff6
+0000002c`d08ffa38  fb55f030 00007ff6 fb55f020 00007ff6
+0000002c`d08ffa48  fb55f010 00007ff6 fb55f000 00007ff6
+0000002c`d08ffa58  cccccccc cccccccc cccccccc cccccccc
+0000002c`d08ffa68  cccccccc cccccccc cccccccc 00000006
+0000002c`d08ffa78  cccccccc cccccccc cccccccc cccccccc
+0000002c`d08ffa88  cccccccc cccccccc cccccccc 00000006
+0000002c`d08ffa98  cccccccc cccccccc cccccccc cccccccc
+
+
+when counter_1 = 6 
+jge     bomb!phase_6+0x166 (7ff6fb552716)
+
+mov 8 into eax
+
+imul rax  with 0 
+
+mov rbp+rax+78h into rax 
+
+mov rax into rbp+8 
+
+mov 1 to counter_1 
+
+ jmp     bomb!phase_6+0x19a (7ff6fb55274a)
+	compare counter_1 with 6 
+	jge     bomb!phase_6+0x1c5 (7ff6fb552775)
+		mov rbp+28h into rax
+		mov 0 to rbp+8
+		mov 0 to counter_1 
+
+		compare counter_1 with 5 
+
+		jge     bomb!phase_6+0x221 (7ff6fb5527d1)
+
+		else
+			mov rbp+28h into rax
+			mov rax+8 into rcx
+			mov rcx into rbp+28h
+			mov [rax] into eax 
+			cmp [rcx] with eax 
+			jge     bomb!phase_6+0x213 (7ff6fb5527c3)
+			else >explode 
+
+
+
+	else
+
+	mov counter_1 into rax 
+	mov rbp+28h into rcx 
+	mov rbp+rax*8+78h into rax 
+	mov rax into rcx+8
+	mov rax+8 into rax 
+	mov rax into rbp+28h 
+	
+	mov counter_1 into eax 
+	inc eax
+	mov it back to countr_1
+	compare counter1 with 6 
+	loop 
+
+
+
+
+
+
+[rcx] = 0x212  rax == 0x1c2 input was 1 
+[rcx] = 0x1c2  rax = 0x215  input was 2 
+[rcx] = 0x215 rax = 0x393 input was 3 
+[rcx] = 0x393 rax = 0x3a7 input was 4 
+
+[rcx] == 0x3a7 rax == 0x200 input was 5 
+
+
+5 right position
+  
+
+1 right position 
+
+ 2 >> wrong position rcx < rax 
+
+
+3 >> wrong position rcx < rax 
+
+
+
+4 >> right position 
+
+
+6 
+
+
+
+
+
+5 1 6 2 4 3
+
+
+5 1 6 right position 
+
+2 > wrong position 
+
+4 > right position 
+
+5 1 6 3 4 2 
+
+
+6 >> wrong postion 
+
+3 >> wrong position 
+
+
+5 6 3 1 4 2 
+
+6 rcx = 200 < rax 215 wrongposition 
+
+
+1 rcx = 212 < rax 393 wrong position 
+
+4 rcx = 393 > rax 1c2 right position 
+
+
+5 2 3 4 1 6 
+
+
+5 rcx = 0x3a7 > rax=1c2 (2)  (5,2) = 5 
+2 rcx = 0x1c2 < rax=215 (3)  (2,3) = 3
+3 rcx = 0x215 < rax = 393 (4) (3,4) = 4
+4 rcx = 0x393 > 0x212 (1)     (4,1) = 4
+1 rcx = 0x212 > 0x200 (6)     (1,6) = 1
+
+
+                              (6,2) = 6
+			      ()
+
+
+ 1 4 5 6 2 3
+
+3 4 1 6 2 5 
+
+compare with
+4 1 6 2 5 3
+
+
+2, 3 >> end
+
+4 
+
+
+
+
+0:000> dq 00007ff6`fb55f010
+00007ff6`fb55f010  00000005`000003a7 00007ff6`fb55f000
+00007ff6`fb55f020  00000004`00000393 00007ff6`fb55f010
+00007ff6`fb55f030  00000003`00000215 00000000`00000000
+00007ff6`fb55f040  00000002`000001c2 00007ff6`fb55f030
+00007ff6`fb55f050  00000001`00000212 00007ff6`fb55f020
+00007ff6`fb55f060  00000000`000003e9 00000000`00000000
+00007ff6`fb55f070  00000000`00000000 00000000`0000002f
+00007ff6`fb55f080  00000000`00000000 00000000`00000000
+
+
+value   encode  associate with  encode 
+5       3a7     6               200   (5,6) = 5
+4 
+
+      393     5               3a7   (4,5) = 5
+3       215     0               0      (3,0) = 3
+2       1c2     3               215    
+1       212     4               393    
+6       200     2               1c2  (6,2) = 6 
+
+
+
+5 4 3 1 6 2
+
+
+
+------------------------------------------------------------------------------------
+
+
+summary : 
+
+the input is six integers 
+
+it iterate to test is everyinteger is > 1 and less than 6 (so the input is from [1-6] but i will depend on order)
+
+it encodes integer in some way and test every integer encode is larager than the next one 
+
+
+the final answer is : 5 4 3 1 6 2
+
