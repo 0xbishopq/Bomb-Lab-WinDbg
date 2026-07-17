@@ -306,7 +306,7 @@ summary :
 
 the input is six integers 
 
-it iterate to test is everyinteger is > 1 and less than 6 (so the input is from [1-6] but i will depend on order)
+it iterate to test is everyinteger is > 1 and less than 6 (so the input is from [1-6] but i will depend on order) and each integer is unique
 
 it encodes integer in some way and test every integer encode is larager than the next one 
 
